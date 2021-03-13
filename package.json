@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd musify && npm start",
-    "server": "nodemon app.js",
+    "build": "cd musify && npm run build",
+    "install-client": "cd musify && npm install",
     "dev": "concurrently -n 'server,client' \"node app.js\" \"npm run client\"",
-    "start": "concurrently -n 'server,client' \"node app.js\" \"npm run client\"",
-    "heroku-postbuild": "cd musify && npm install --only=dev && npm install && npm run start"
+    "start": "node app.js",
+    "heroku-postbuild": "cd musify && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
