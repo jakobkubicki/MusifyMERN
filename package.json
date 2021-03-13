@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd musify && npm start",
     "server": "nodemon app.js",
-    "dev": "concurrently -n 'server,client' \"nodemon app.js\" \"npm run client\"",
-    "start": "concurrently -n 'server,client' \"nodemon app.js\" \"npm run client\"",
+    "dev": "concurrently -n 'server,client' \"node app.js\" \"npm run client\"",
+    "start": "concurrently -n 'server,client' \"node app.js\" \"npm run client\"",
     "heroku-postbuild": "cd musify && npm install --only=dev && npm install && npm run start"
   },
   "keywords": [],
