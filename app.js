@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 app.use(cookieParser());
 app.use(express.json());
 
@@ -18,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+	response.sendFile(path.join(__dirname, 'musify/public', 'index.html'));
 });
 
 const userRouter = require('./routes/User');
