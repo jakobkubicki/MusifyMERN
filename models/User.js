@@ -8,6 +8,10 @@ const UserSchema = new mongoose.Schema({
         min : 6,
         max : 15
     },
+    email :{
+        type : String,
+        required : true,
+    },
     password : {
         type : String,
         required : true
@@ -17,7 +21,7 @@ const UserSchema = new mongoose.Schema({
         enum : ['user','admin'],
         required: true
     },
-    todos : [{type : mongoose.Schema.Types.ObjectId, ref: 'Todo'}]
+    profile : [{type : mongoose.Schema.Types.ObjectId, ref: 'Profile'}]
 });
 
 UserSchema.pre('save',function(next){
