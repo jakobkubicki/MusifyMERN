@@ -1,0 +1,29 @@
+.login {
+    width: 20%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    margin-top: 140px;
+}
+
+.form-control    {
+    width: 320px;
+    margin: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.loginDiv{
+
+}
+
+h4{
+    padding: 10px;
+    font-size: 20px;
+}
+
+h3{
+    color: black;
+}

@@ -3,6 +3,10 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const User = require("../models/User");
+const router = express.Router();
+const cors = require('cors');
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
@@ -14,17 +18,19 @@ mongoose.connection.on('connected', () => {
     console.log("Mongo is connected");
 });
 
+app.use("/", router);
+
+router.route("/getData").get(function(req, res) {
+    User.find({}).then(eachOne => {
+        res.json(eachOne);
+    })
+});
+
+app.get('/', (req, res) => { res.send('Hello from Express!') });
+
 const userRouter = require('./routes/User');
-const { get } = require('./routes/User');
 app.use('/user',userRouter);
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('musify/build'));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(_dirname, 'musify', 'build', 'index.html'));
-    });
-}
 
 app.listen(process.env.PORT || 5000,()=>{
     console.log('express server started');

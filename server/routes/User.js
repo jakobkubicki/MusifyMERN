@@ -1,11 +1,10 @@
 const express = require('express');
-const userRouter = express.Router();
+const router = express.Router();
 const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
-const User = require('../models/User');
-const Profile = require('../models/Profile');
-
+const User = require('../../models/User');
+const Profile = require('../../models/Profile');
 
 const signToken = userID =>{
     return JWT.sign({
@@ -14,7 +13,7 @@ const signToken = userID =>{
     },"musifyMERN",{expiresIn : "1h"});
 }
 
-userRouter.post('/register',(req,res)=>{
+router.post('/register',(req,res)=>{
     const { username,email,password,role } = req.body;
     User.findOne({username},(err,user)=>{
         if(err)
@@ -33,7 +32,7 @@ userRouter.post('/register',(req,res)=>{
     });
 });
 
-userRouter.post('/login',passport.authenticate('local',{session : false}),(req,res)=>{
+router.post('/login',passport.authenticate('local',{session : false}),(req,res)=>{
     if(req.isAuthenticated()){
        const {_id,username,role} = req.user;
        const token = signToken(_id);
@@ -42,12 +41,12 @@ userRouter.post('/login',passport.authenticate('local',{session : false}),(req,r
     }
 });
 
-userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.get('/logout',passport.authenticate('jwt',{session : false}),(req,res)=>{
     res.clearCookie('access_token');
     res.json({user:{username : "", role : ""},success : true});
 });
 
-userRouter.post('/profile',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.post('/profile',passport.authenticate('jwt',{session : false}),(req,res)=>{
     const profile = new Profile(req.body);
     profile.save(err=>{
         if(err)
@@ -64,7 +63,7 @@ userRouter.post('/profile',passport.authenticate('jwt',{session : false}),(req,r
     })
 });
 
-userRouter.get('/profile',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.get('/profile',passport.authenticate('jwt',{session : false}),(req,res)=>{
     User.findById({_id : req.user._id}).populate('profileArr').exec((err,document)=>{
         if(err)
             res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
@@ -74,7 +73,7 @@ userRouter.get('/profile',passport.authenticate('jwt',{session : false}),(req,re
     });
 });
 
-userRouter.get('/admin',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.get('/admin',passport.authenticate('jwt',{session : false}),(req,res)=>{
     if(req.user.role === 'admin'){
         res.status(200).json({message : {msgBody : 'You are an admin', msgError : false}});
     }
@@ -82,9 +81,10 @@ userRouter.get('/admin',passport.authenticate('jwt',{session : false}),(req,res)
         res.status(403).json({message : {msgBody : "You're not an admin,go away", msgError : true}});
 });
 
-userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
     const {username,role} = req.user;
     res.status(200).json({isAuthenticated : true, user : {username,role}});
 });
 
-module.exports = userRouter;
+
+module.exports = router;
