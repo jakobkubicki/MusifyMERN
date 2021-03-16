@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getProfile : ()=>{
-        return fetch('/user/profile')
+        return fetch('https://musify-mern.herokuapp.com/user/profile')
                 .then(response=>{
                     if(response.status !== 401){
                         return response.json().then(data => data);
@@ -11,7 +11,7 @@ export default {
                 });
     },
     postProfile : todo=>{
-        return fetch('/user/profile',{
+        return fetch('https://musify-mern.herokuapp.com/user/profile',{
             method : "post",
             body : JSON.stringify(todo),
             headers:{

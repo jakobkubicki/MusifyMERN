@@ -9,7 +9,7 @@ export default class fetchUsers extends React.Component{
     }
 
         async componentDidMount() {
-            const url = "https://musify-mern.herokuapp.com/";
+            const url = "https://musify-mern.herokuapp.com/getData";
             const response = await fetch(url);
             const data = await response.json();
             this.setState({ person: data, loading: false});

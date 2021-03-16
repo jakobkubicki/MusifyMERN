@@ -18,7 +18,7 @@ export default {
     },
     register : user =>{
         console.log(user);
-        return fetch('/user/register',{
+        return fetch('https://musify-mern.herokuapp.com/user/register',{
             method : "post",
             body : JSON.stringify(user),
             headers : {
@@ -28,12 +28,12 @@ export default {
           .then(data => data);
     },
     logout : ()=>{
-        return fetch('/user/logout')
+        return fetch('https://musify-mern.herokuapp.com/user/logout')
                 .then(res => res.json())
                 .then(data => data);
     },
     isAuthenticated : ()=>{
-        return fetch('/user/authenticated')
+        return fetch('https://musify-mern.herokuapp.com/user/authenticated')
                 .then(res=>{
                     if(res.status !== 401)
                         return res.json().then(data => data);
