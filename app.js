@@ -30,7 +30,9 @@ router.route("/getData").get(function(req, res) {
     })
 });
 
-app.get('/', (req, res) => { res.send('Hello from Express!') });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  });
 
 const userRouter = require('./routes/User');
 app.use('/user',userRouter);
