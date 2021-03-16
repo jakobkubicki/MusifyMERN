@@ -3,7 +3,7 @@
 export default {
     login : user =>{
         console.log(user);
-        return fetch('/user/login',{
+        return fetch('https://musify-mern.herokuapp.com/user/login',{
             method : "post",
             body : JSON.stringify(user),
             headers : {
