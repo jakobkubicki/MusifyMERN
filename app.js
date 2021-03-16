@@ -3,7 +3,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-const User = require("../models/User");
+const User = require("./models/User");
 const router = express.Router();
 const cors = require('cors');
 app.use(cors());
@@ -17,6 +17,10 @@ mongoose.connect(MongoDB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 mongoose.connection.on('connected', () => {
     console.log("Mongo is connected");
 });
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../client/build"));
+  }
 
 app.use("/", router);
 

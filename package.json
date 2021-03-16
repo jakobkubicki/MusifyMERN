@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ../client && npm start",
-    "build": "cd ../client && npm run build",
-    "install-client": "cd ../client && npm install",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
     "dev": "concurrently -n 'server,client' \"node app.js\" \"npm run client\"",
     "start": "node app.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
