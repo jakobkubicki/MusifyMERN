@@ -28,7 +28,12 @@ export default {
           .then(data => data);
     },
     logout : ()=>{
-        return fetch('https://musify-mern.herokuapp.com/user/logout')
+        return fetch('https://musify-mern.herokuapp.com/user/logout', {
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+               }
+        })
                 .then(res => res.json())
                 .then(data => data);
     },
